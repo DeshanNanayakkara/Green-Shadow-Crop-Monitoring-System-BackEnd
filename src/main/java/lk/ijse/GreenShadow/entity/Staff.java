@@ -1,8 +1,21 @@
 package lk.ijse.GreenShadow.entity;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "staff")
 public class Staff {
+    @Id
     private String id;
     private String firstName;
     private String lastName;
@@ -17,5 +30,22 @@ public class Staff {
     private String addressLine05;
     private String contactNo;
     private String email;
+    @Enumerated(EnumType.STRING)
     private Role role;
+    @ManyToMany(mappedBy = "staff")
+    @JsonIgnore
+    private List<Field> field;
+
+    @ManyToMany(mappedBy = "staff")
+    @JsonIgnore
+    private List<CropDetail> cropDetail;
+
+    @OneToOne(mappedBy = "staff",optional = true)
+    @JsonIgnore
+    private Equipment equipment;
+
+    @OneToMany(mappedBy = "staff")
+    @JsonIgnore
+    private List<Vehicle> vehicles;
+
 }
