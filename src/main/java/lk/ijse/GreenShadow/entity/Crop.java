@@ -1,17 +1,20 @@
 package lk.ijse.GreenShadow.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-@NoArgsConstructor
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "crop")
-public class Crop {
+public class Crop implements SuperEntity {
+    @Id
     private String cropCode;
     private String cropCommonName;
     private String cropScientificName;
@@ -19,11 +22,10 @@ public class Crop {
     private String cropImage;
     private String category;
     private String cropSeason;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "fieldCode", referencedColumnName = "fieldCode")
     private Field field;
-    @ManyToMany(mappedBy = "crop")
-    private List<CropDetail> cropDetail;
-
+    @ManyToMany(mappedBy = "crops")
+    private List<MonitoringLog> monitoringLogs;
 }

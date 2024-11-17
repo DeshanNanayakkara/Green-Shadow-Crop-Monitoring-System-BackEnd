@@ -1,5 +1,5 @@
 package lk.ijse.GreenShadow.entity;
 
 public enum Role {
-    SCIENTIST,MANAGER,ADMINISTRATIVE,OTHER
+    MANAGER, ADMINISTRATIVE, SCIENTIST, OTHER
 }

@@ -1,6 +1,5 @@
 package lk.ijse.GreenShadow.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,17 +8,18 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "staff")
-public class Staff {
+public class Staff implements SuperEntity {
     @Id
-    private String id;
+    private String staffId;
     private String firstName;
     private String lastName;
     private String designation;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private Date joinedDate;
     private Date dob;
@@ -29,23 +29,19 @@ public class Staff {
     private String addressLine04;
     private String addressLine05;
     private String contactNo;
+    @Column(unique = true)
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
     @ManyToMany(mappedBy = "staff")
-    @JsonIgnore
-    private List<Field> field;
-
-    @ManyToMany(mappedBy = "staff")
-    @JsonIgnore
-    private List<CropDetail> cropDetail;
-
-    @OneToOne(mappedBy = "staff",optional = true)
-    @JsonIgnore
+    private List<Field> fields;
+    @ManyToMany
+    @JoinTable(name = "monitoring_log_staff",
+            joinColumns = @JoinColumn(name = "staffId", referencedColumnName = "staffId"),
+            inverseJoinColumns = @JoinColumn(name = "logCode", referencedColumnName = "logCode"))
+    private List<MonitoringLog> monitoringLogs;
+    @OneToOne(mappedBy = "staff", optional = true)
     private Equipment equipment;
-
     @OneToMany(mappedBy = "staff")
-    @JsonIgnore
     private List<Vehicle> vehicles;
-
 }
