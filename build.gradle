@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.5'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id("org.sonarqube") version "5.1.0.4882"
 }
 
 group = 'lk.ijse.springboot'
@@ -23,9 +24,19 @@ repositories {
 	mavenCentral()
 }
 
+sonarqube {
+	properties {
+		property "sonar.projectKey", "CropMonitorAPI"
+		property "sonar.projectName", "CropMonitorAPI"
+		property "sonar.host.url", "http://localhost:9000"
+		property "sonar.token", "sqp_188f5426317c9a2459939f2b3f9285946debc7f4"
+	}
+}
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -37,6 +48,9 @@ dependencies {
 	implementation 'ch.qos.logback:logback-classic'
 	implementation 'org.apache.logging.log4j:log4j-slf4j-impl'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.12.6'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.12.6'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.6'
 }
 
 tasks.named('test') {
