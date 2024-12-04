@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .cors(withDefaults()) //static method ekk import kra
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("api/v1/auth/**",
-                                "/api/v1/healthTest", "/api/v1/staff").permitAll()
+                                "/api/v1/healthTest", "/api/v1/staff/**").permitAll()
                         .anyRequest().authenticated())
                         .sessionManagement(session -> session
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

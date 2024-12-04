@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/staff")
+@RequestMapping("api/v1/staff")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class StaffManagementController {
     private final StaffService staffService;
     static Logger logger = LoggerFactory.getLogger(StaffManagementController.class);

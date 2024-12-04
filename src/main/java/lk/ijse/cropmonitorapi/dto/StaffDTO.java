@@ -23,9 +23,9 @@ public class StaffDTO implements SuperDTO, StaffResponse {
     private String designation;
     @NotBlank
     private String gender;
-    @Past
+
     private Date joinedDate;
-    @Past
+
     private Date dob;
     @NotBlank
     private String addressLine01;
